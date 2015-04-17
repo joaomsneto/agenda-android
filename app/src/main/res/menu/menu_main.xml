@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <item
+        android:title="Datas"
+        android:id="@+id/action_calendar"
+        android:icon="@android:drawable/ic_menu_today"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:checkable="true"/>
+
+    <item
+        android:title="Sobre"
+        android:id="@+id/action_sobre"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"/>
+</menu>

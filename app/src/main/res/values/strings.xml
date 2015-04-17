@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Expotec</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_calendar">Teste</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="endereco_site">www.expotec.org.br</string>
+    <string name="divisao_horarios">às</string>
+    <string name="texto1_sobre">Agenda do evento Expotec</string>
+    <string name="texto2_sobre">Acontece em João Pessoa entre os dias 27 e 30 de maio de 2015</string>
+    <string name="texto3_sobre">
+Desenvolvido por <b>João Neto</b>, como trabalho de conclusão de curso do curso de android do GDG João Pessoa
+    </string>
+</resources>

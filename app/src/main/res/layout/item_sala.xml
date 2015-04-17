@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp">
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@drawable/border_right"
+        android:gravity="center_vertical"
+        android:padding="2dp">
+
+        <TableRow
+            android:paddingRight="4dp"
+            android:paddingLeft="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp">
+            <TextView
+                android:id="@+id/hora_inicial_agenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="#ff14b5ea"
+                android:textStyle="bold"
+                />
+        </TableRow>
+        <TableRow
+            android:paddingRight="4dp"
+            android:paddingLeft="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/divisao_horarios"
+                android:textColor="#ff14b5ea"
+                />
+        </TableRow>
+        <TableRow
+            android:paddingRight="4dp"
+            android:paddingLeft="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp">
+            <TextView
+                android:id="@+id/hora_final_agenda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="#ff14b5ea"
+                android:textStyle="bold"
+                />
+        </TableRow>
+    </TableLayout>
+    <TextView
+        android:id="@+id/titulo_agenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="#ffb3d4e0"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:textAlignment="center"
+        />
+
+</LinearLayout>
