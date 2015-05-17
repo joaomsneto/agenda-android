@@ -30,3 +30,9 @@ proguard/
 
 # Log Files
 *.log
+
+# Gradle wrapper
+/gradle
+/gradlew
+/gradlew.bat
+gradle.properties
