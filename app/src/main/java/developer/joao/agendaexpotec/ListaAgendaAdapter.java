@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -36,13 +37,6 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
 
         if( agenda.getCor() != null ) {
             int cor = Color.parseColor("#" + agenda.getCor());
-//            GradientDrawable drawable = new GradientDrawable();
-//            drawable.setBounds(0, 0,0, 10);
-//            drawable.setShape(GradientDrawable.RECTANGLE);
-//            drawable.setStroke(3, cor);
-//            Drawable[] layers = new Drawable[1];
-//            layers[0] = drawable;
-//            LayerDrawable layerList = new LayerDrawable(layers);
             LayerDrawable layerList = (LayerDrawable) context.getResources().getDrawable(R.drawable.border_bottom_item_sala);
             GradientDrawable itemBorda = (GradientDrawable) layerList.findDrawableByLayerId(R.id.border_item_sala);
             itemBorda.setColor(cor);
@@ -61,6 +55,15 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
         TextView horaFinalAgenda = (TextView) convertView.findViewById(R.id.hora_final_agenda);
         String horaFinal = formatterHora.format(agenda.getHoraFinal());
         horaFinalAgenda.setText(horaFinal);
+
+        final String textoToast = agenda.getTexto();
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, textoToast, Toast.LENGTH_LONG).show();
+            }
+        });
 
         return convertView;
     }
