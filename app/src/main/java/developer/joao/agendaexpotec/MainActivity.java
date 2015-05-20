@@ -11,13 +11,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +46,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     static ArrayList<String> salas = new ArrayList<String>();
     static String diaEscolhido;
     static Map<String, List<Agenda>> listaDeAgendas = new HashMap<String, List<Agenda>>();
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +125,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
 
         mActionBar = actionBar;
+
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        addDrawerItems(mDrawer);
+    }
+
+    private void addDrawerItems(final DrawerLayout mDrawer) {
+        String[] osArray = salas.toArray(new String[salas.size()]);
+        for( int i = 0; i < osArray.length; i++ ) {
+            osArray[i] = osArray[i].toLowerCase();
+        }
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mViewPager.setCurrentItem(position);
+                mDrawer.closeDrawer(mDrawerList);
+            }
+        });
     }
 
     @Override
@@ -193,9 +220,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             dialog.show();
             return true;
         } else if( id == R.id.action_sobre ) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("Sobre");
             View view = getLayoutInflater().inflate(R.layout.mensagem_sobre, null);
+            TextView textView3 = (TextView) view.findViewById(R.id.text3_sobre);
+            final int[] vezesClicadas = {0};
+            textView3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vezesClicadas[0]++;
+                    if( vezesClicadas[0] % 5 == 0 ) {
+                        Toast.makeText(getApplicationContext(), "Dedico esse primeiro aplicativo à minha família, pelo apoio, e em especial à minha esposa, pela grande companheira e guerreira que ela é. Te amo Anna Rayssa! <3", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Dedico esse primeiro aplicativo à minha família, pelo apoio, e em especial à minha esposa, pela grande companheira e guerreira que ela é. Te amo Anna Rayssa! <3", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
             dialog.setView(view);
             dialog.show();
         }

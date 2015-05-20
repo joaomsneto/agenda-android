@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -165,7 +164,6 @@ public class Agenda implements Serializable, Comparable {
                 "texto" };
 
         cursor = sqlLite.query(TABLE_NAME, colunas, condicao, null, null, null, orderBy);
-        Log.v("tamanhoCursor", String.valueOf(cursor.getCount()));
         TreeMap<String, Agenda> listaAgendas = new TreeMap<String, Agenda>();
         while( cursor.moveToNext() ) {
             Agenda agenda = new Agenda(this.context);

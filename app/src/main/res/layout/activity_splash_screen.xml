@@ -7,26 +7,62 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="developer.joao.agendaexpotec.SplashScreenActivity"
-    android:background="#ffffff">
+    android:background="#01A9EA">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/splash_screen_logo"
-        android:layout_centerInParent="true"
+        android:src="@drawable/logo_splash"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:id="@+id/imagem_splash"
         android:adjustViewBounds="true"
         android:padding="0dp"
+        android:background="@null"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imagem_splash"
+        android:layout_marginTop="20dp"
+        android:text="@string/info_splash"
+        android:id="@+id/info_splash"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+    <ImageView
+        android:id="@+id/gif_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Animation"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/info_splash"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/info_design"
+        android:layout_marginTop="10dp"
+        android:id="@+id/endereco_site"
+        android:text="@string/endereco_site"
+        android:textColor="#ffffff"
+        android:textSize="12dp" />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:text="@string/endereco_site"
-        android:textColor="#2fc3df"
-        android:textSize="12dp" />
+        android:text="@string/info_design"
+        android:textColor="#ffffff"
+        android:id="@+id/info_design"
+        android:textSize="10dp" />
 
 </RelativeLayout>

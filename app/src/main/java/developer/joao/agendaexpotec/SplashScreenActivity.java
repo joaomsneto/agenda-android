@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +33,18 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        final ImageView animImageView = (ImageView) findViewById(R.id.gif_splash);
+        animImageView.setBackgroundResource(R.drawable.gif_splash);
+        animImageView.post(new Runnable() {
+            @Override
+            public void run() {
+                AnimationDrawable frameAnimation =
+                        (AnimationDrawable) animImageView.getBackground();
+                frameAnimation.start();
+            }
+        });
+
         Agenda agendaObjeto = new Agenda(getApplicationContext());
         try {
             ConnectivityManager conectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -58,7 +72,7 @@ public class SplashScreenActivity extends Activity {
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
                     alertDialog.setTitle("Não há conexão");
-                    alertDialog.setMessage("No seu primeiro acesso, é necessário alguma conexão com a internet");
+                    alertDialog.setMessage("No seu primeiro acesso, é necessário alguma conexão com a internet"+listaAgenda.size());
                     alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -112,6 +126,7 @@ public class SplashScreenActivity extends Activity {
                         agendaTemp.setLink(objetoAgenda.getString("link"));
                         agendaTemp.setTitulo(objetoAgenda.getString("titulo"));
                         agendaTemp.setTexto(objetoAgenda.getString("texto"));
+                        agendaTemp.salvar();
                         agenda.put(formatterDia.format(agendaTemp.getDia()) + "|-|" + agendaTemp.getSala() + "|-|" + formatterHora.format(agendaTemp.getHoraInicial()), agendaTemp);
                     }
 

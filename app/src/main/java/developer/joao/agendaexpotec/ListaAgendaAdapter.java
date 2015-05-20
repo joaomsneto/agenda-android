@@ -1,9 +1,11 @@
 package developer.joao.agendaexpotec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +32,7 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Agenda agenda = agendas.get(position);
+        final Agenda agenda = agendas.get(position);
 
         if( convertView == null )
             convertView = LayoutInflater.from(context).inflate(R.layout.item_sala, null);
@@ -56,12 +58,16 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
         String horaFinal = formatterHora.format(agenda.getHoraFinal());
         horaFinalAgenda.setText(horaFinal);
 
-        final String textoToast = agenda.getTexto();
-
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, textoToast, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, TextoAgendaActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Bundle bundle = new Bundle();
+                bundle.putString("tituloAgenda", agenda.getTitulo());
+                bundle.putString("textoAgenda", agenda.getTexto());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
 
