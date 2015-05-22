@@ -108,7 +108,7 @@ public class Agenda implements Serializable, Comparable {
     public void selecionarPorCondicao(String condicao) throws Exception {
         Cursor cursor = null;
 
-        SQLiteDatabase sqlLite = new DBHelper(this.context).getReadableDatabase();
+        SQLiteDatabase sqlLite = DBHelper.getInstance(context).getReadableDatabase();
 
         String where = condicao;
 
@@ -151,7 +151,7 @@ public class Agenda implements Serializable, Comparable {
 
         Cursor cursor = null;
 
-        SQLiteDatabase sqlLite = new DBHelper(this.context).getReadableDatabase();
+        SQLiteDatabase sqlLite = DBHelper.getInstance(context).getReadableDatabase();
         String where = condicao;
         String[] colunas = new String[] { "id",
                 "dia",
@@ -188,7 +188,7 @@ public class Agenda implements Serializable, Comparable {
     }
 
     public long salvar() throws Exception {
-        SQLiteDatabase sqlLite = new DBHelper(context).getWritableDatabase();
+        SQLiteDatabase sqlLite = DBHelper.getInstance(context).getWritableDatabase();
 
         ContentValues content = new ContentValues();
 
@@ -222,7 +222,7 @@ public class Agenda implements Serializable, Comparable {
     }
 
     public void limpar() {
-        SQLiteDatabase sqlLite = new DBHelper(context).getWritableDatabase();
+        SQLiteDatabase sqlLite = DBHelper.getInstance(context).getWritableDatabase();
         sqlLite.execSQL("DELETE FROM "+this.TABLE_NAME);
     }
 }

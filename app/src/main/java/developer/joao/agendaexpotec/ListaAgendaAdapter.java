@@ -1,11 +1,13 @@
 package developer.joao.agendaexpotec;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,16 +39,17 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
         if( convertView == null )
             convertView = LayoutInflater.from(context).inflate(R.layout.item_sala, null);
 
-        if( agenda.getCor() != null ) {
-            int cor = Color.parseColor("#" + agenda.getCor());
+        //if( agenda.getCor() != null ) {
+            //int cor = Color.parseColor("#" + agenda.getCor());
+            int cor = Color.parseColor("#ff14b5ea");
             LayerDrawable layerList = (LayerDrawable) context.getResources().getDrawable(R.drawable.border_bottom_item_sala);
             GradientDrawable itemBorda = (GradientDrawable) layerList.findDrawableByLayerId(R.id.border_item_sala);
             itemBorda.setColor(cor);
             convertView.setBackgroundDrawable(layerList);
-        }
+        //}
 
         TextView tituloAgenda = (TextView) convertView.findViewById(R.id.titulo_agenda);
-        tituloAgenda.setText(agenda.getTitulo());
+        tituloAgenda.setText(Html.fromHtml(agenda.getTitulo()).toString());
 
         SimpleDateFormat formatterHora = new SimpleDateFormat("HH:mm");
 
@@ -67,7 +70,9 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
                 bundle.putString("tituloAgenda", agenda.getTitulo());
                 bundle.putString("textoAgenda", agenda.getTexto());
                 intent.putExtras(bundle);
-                context.startActivity(intent);
+                Activity activity = (Activity) context;
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
             }
         });
 

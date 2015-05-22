@@ -3,8 +3,12 @@ package developer.joao.agendaexpotec;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +16,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +28,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +45,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+
+import network.JsonParser;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -58,7 +71,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         Map<String, Agenda> agenda = (HashMap<String, Agenda>) intent.getSerializableExtra("agenda");
 
-        if( agenda != null && savedInstanceState == null ) {
+        if (agenda != null && savedInstanceState == null) {
+
             for (Map.Entry<String, Agenda> entry : agenda.entrySet()) {
                 Agenda agendaUn = entry.getValue();
                 String[] explode = entry.getKey().split("\\|\\-\\|");
@@ -81,14 +95,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Set<String> datasTemp = new HashSet<String>(datas);
         datas.clear();
         Iterator<String> datasIterator = datasTemp.iterator();
-        while( datasIterator.hasNext() ) {
+        while (datasIterator.hasNext()) {
             datas.add(datasIterator.next());
         }
 
         Set<String> salasTemp = new HashSet<String>(salas);
         salas.clear();
         Iterator<String> salasIterator = salasTemp.iterator();
-        while( salasIterator.hasNext() ) {
+        while (salasIterator.hasNext()) {
             salas.add(salasIterator.next());
         }
 
@@ -117,6 +131,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
+        if (actionBar.getTabCount() > 0) {
+            actionBar.removeAllTabs();
+        }
+
         for (int i = 0; i < mSecoesPagerAdapter.getCount(); i++) {
             actionBar.addTab(
                     actionBar.newTab()
@@ -126,7 +144,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         mActionBar = actionBar;
 
-        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerList = (ListView) findViewById(R.id.navList);
         DrawerLayout mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         addDrawerItems(mDrawer);
     }
@@ -310,9 +328,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             Collections.sort(listaAgendaTemp);
 
-            listaAgenda.setAdapter(new ListaAgendaAdapter(this.getActivity().getApplicationContext(), listaAgendaTemp));
+            listaAgenda.setAdapter(new ListaAgendaAdapter(this.getActivity(), listaAgendaTemp));
 
             return rootView;
         }
+
     }
 }

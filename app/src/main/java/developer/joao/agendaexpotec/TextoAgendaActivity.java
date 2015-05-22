@@ -33,4 +33,15 @@ public class TextoAgendaActivity extends Activity {
         textViewTextoAgenda.setText(Html.fromHtml(textoAgenda).toString());
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                return true;
+        }
+        return false;
+    }
 }

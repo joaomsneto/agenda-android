@@ -12,6 +12,8 @@ import java.io.File;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
+    private static DBHelper mInstance = null;
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "agenda_expotec.db";
     private static final String AGENDA_TABLE_CREATE =
@@ -27,8 +29,18 @@ public class DBHelper extends SQLiteOpenHelper {
                     " texto TEXT);";
     private static final Object FILE_DIR = "Android/data/developer.joao.agendaexpotec";
 
+    public static DBHelper getInstance(Context ctx) {
 
-    public DBHelper(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new DBHelper(ctx.getApplicationContext());
+        }
+        return mInstance;
+    }
+
+    private DBHelper(Context context) {
         super(context, Environment.getExternalStorageDirectory()
                 + File.separator + FILE_DIR
                 + File.separator + DATABASE_NAME, null, DATABASE_VERSION);

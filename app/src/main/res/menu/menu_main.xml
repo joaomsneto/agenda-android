@@ -14,7 +14,6 @@
     <item
         android:title="Sobre"
         android:id="@+id/action_sobre"
-        android:icon="@android:drawable/ic_menu_agenda"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"/>
+        android:orderInCategory="101"
+        app:showAsAction="never"/>
 </menu>
