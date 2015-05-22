@@ -39,14 +39,14 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
         if( convertView == null )
             convertView = LayoutInflater.from(context).inflate(R.layout.item_sala, null);
 
-        //if( agenda.getCor() != null ) {
-            //int cor = Color.parseColor("#" + agenda.getCor());
-            int cor = Color.parseColor("#ff14b5ea");
+        if( agenda.getCor() != null ) {
+            int cor = Color.parseColor("#" + agenda.getCor());
+            //int cor = Color.parseColor("#ff14b5ea");
             LayerDrawable layerList = (LayerDrawable) context.getResources().getDrawable(R.drawable.border_bottom_item_sala);
             GradientDrawable itemBorda = (GradientDrawable) layerList.findDrawableByLayerId(R.id.border_item_sala);
             itemBorda.setColor(cor);
             convertView.setBackgroundDrawable(layerList);
-        //}
+        }
 
         TextView tituloAgenda = (TextView) convertView.findViewById(R.id.titulo_agenda);
         tituloAgenda.setText(Html.fromHtml(agenda.getTitulo()).toString());
