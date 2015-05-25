@@ -6,14 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -66,10 +64,7 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, TextoAgendaActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Bundle bundle = new Bundle();
-                bundle.putString("tituloAgenda", agenda.getTitulo());
-                bundle.putString("textoAgenda", agenda.getTexto());
-                intent.putExtras(bundle);
+                intent.putExtra("agenda", agenda);
                 Activity activity = (Activity) context;
                 activity.startActivity(intent);
                 activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
