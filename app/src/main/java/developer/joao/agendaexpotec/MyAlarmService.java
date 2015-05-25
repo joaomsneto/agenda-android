@@ -49,7 +49,7 @@ public class MyAlarmService extends Service {
 
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity( this.getApplicationContext(),0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.setLatestEventInfo(this.getApplicationContext(), "Expotec - Começa em instantes", intent.getStringExtra("TITLE_ALERT"), pendingNotificationIntent);
+        notification.setLatestEventInfo(this.getApplicationContext(), "Expotec - Em 5 minutos...", intent.getStringExtra("TITLE_ALERT"), pendingNotificationIntent);
 
         nManager.notify(0, notification);
 

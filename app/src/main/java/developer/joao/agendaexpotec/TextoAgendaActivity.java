@@ -46,11 +46,11 @@ public class TextoAgendaActivity extends Activity {
 //        dataCompleta.setYear(agenda.getDia().getYear());
 //        dataCompleta.setHours(agenda.getHoraInicial().getHours());
 //        dataCompleta.setMinutes(agenda.getHoraInicial().getMinutes());
-        dataCompleta.setDate(24);
+        dataCompleta.setDate(25);
         dataCompleta.setMonth(4);
         dataCompleta.setYear(115);
-        dataCompleta.setHours(17);
-        dataCompleta.setMinutes(22);
+        dataCompleta.setHours(15);
+        dataCompleta.setMinutes(40);
         hora = simpleDateFormat.format(dataCompleta);
         TextView textViewTextoAgenda = (TextView) findViewById(R.id.textoAgenda);
         Typeface fontArimo = Typeface.createFromAsset(getAssets(), "Arimo-Bold.ttf");
@@ -65,18 +65,23 @@ public class TextoAgendaActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_texto_agenda, menu);
         this.menu = menu;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy_HH:mm");
+        Date dataFormatada = null;
         try {
-            if( simpleDateFormat.parse(hora).compareTo(Calendar.getInstance().getTime()) > 0 ) {
-                SharedPreferences sharedPreferences = getSharedPreferences("alarms", MODE_PRIVATE);
-                Set<String> alarmsSet = sharedPreferences.getStringSet("alarms", new HashSet<String>());
-                if (alarmsSet.contains(String.valueOf(id))) {
-                    menu.add(0, 0, 1, "Desmarcar Alarme").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                } else {
-                    menu.add(0, 1, 1, "Marcar Alarme").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-                }
-            }
+            dataFormatada = simpleDateFormat.parse(hora);
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+        Calendar testeCalendario = Calendar.getInstance();
+        testeCalendario.setTime(dataFormatada);
+        testeCalendario.add(Calendar.MINUTE, -5);
+        if( testeCalendario.compareTo(Calendar.getInstance()) > 0 ) {
+            SharedPreferences sharedPreferences = getSharedPreferences("alarms", MODE_PRIVATE);
+            Set<String> alarmsSet = sharedPreferences.getStringSet("alarms", new HashSet<String>());
+            if (alarmsSet.contains(String.valueOf(id))) {
+                menu.add(0, 0, 1, "Desmarcar Alarme").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            } else {
+                menu.add(0, 1, 1, "Marcar Alarme").setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            }
         }
 
         return true;
@@ -98,7 +103,10 @@ public class TextoAgendaActivity extends Activity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if( dataFormatada.compareTo(Calendar.getInstance().getTime()) > 0 ) {
+            Calendar testeCalendario = Calendar.getInstance();
+            testeCalendario.setTime(dataFormatada);
+            testeCalendario.add(Calendar.MINUTE, -5);
+            if( testeCalendario.compareTo(Calendar.getInstance()) > 0 ) {
 
                 Intent intent = new Intent(TextoAgendaActivity.this, ReceptorAgenda.class);
                 intent.putExtra("ID_ALERT", id);
@@ -111,7 +119,7 @@ public class TextoAgendaActivity extends Activity {
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(dataFormatada);
-                Toast.makeText(getApplicationContext(), "Hora Certa" + dataFormatada.toString(), Toast.LENGTH_LONG).show();
+                calendar.add(Calendar.MINUTE, -5);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
                 SharedPreferences sharedPreferences = getSharedPreferences("alarms", MODE_PRIVATE);
@@ -135,8 +143,10 @@ public class TextoAgendaActivity extends Activity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-            if( dataFormatada.compareTo(Calendar.getInstance().getTime()) > 0 ) {
+            Calendar testeCalendario = Calendar.getInstance();
+            testeCalendario.setTime(dataFormatada);
+            testeCalendario.add(Calendar.MINUTE, -5);
+            if( testeCalendario.compareTo(Calendar.getInstance()) > 0 ) {
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
                 Intent intent = new Intent(TextoAgendaActivity.this, ReceptorAgenda.class);

@@ -3,6 +3,7 @@ package developer.joao.agendaexpotec;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -11,10 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by joao on 13/04/15.
@@ -58,6 +63,14 @@ public class ListaAgendaAdapter extends ArrayAdapter<Agenda> {
         TextView horaFinalAgenda = (TextView) convertView.findViewById(R.id.hora_final_agenda);
         String horaFinal = formatterHora.format(agenda.getHoraFinal());
         horaFinalAgenda.setText(horaFinal);
+
+        ImageView iconAlarme = (ImageView) convertView.findViewById(R.id.icon_alarme);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("alarms", context.MODE_PRIVATE);
+        Set<String> alarmsSet = sharedPreferences.getStringSet("alarms", new HashSet<String>());
+        tituloAgenda.setText(tituloAgenda.getText() + String.valueOf(alarmsSet.contains(String.valueOf(agenda.getId()))));
+        if (alarmsSet.contains(String.valueOf(agenda.getId()))) {
+            iconAlarme.setVisibility(View.VISIBLE);
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
